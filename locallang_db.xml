@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'rgnewsce'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tt_news.tx_rgnewsce_ce">Content elements</label>
+			<label index="tt_news.tx_rgnewsce_style">Styling</label>			
+		</languageKey>
+
+		<!-- GERMAN -->
+		<languageKey index="default" type="array">
+			<label index="tt_news.tx_rgnewsce_ce">Contentelement</label>
+			<label index="tt_news.tx_rgnewsce_style">Styling</label>			
+		</languageKey>
+
+	</data>
+</T3locallang>

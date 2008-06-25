@@ -1,0 +1,54 @@
+
+/* rgnewsce */
+
+.rgncleft {
+	float:left;
+	overflow:auto;
+	padding:10px;
+}
+
+
+.rgncright {
+	float:right;
+	overflow:auto;
+	padding:10px;
+
+}
+
+
+
+
+.news-single-item .ce ,
+#left .ce .news-single-item .ce{
+	background:none;
+	padding:0;
+	margin:0;
+	width:auto;
+	min-height:0;
+	opacity:1;
+	filter:none;
+}
+
+* html .rgncleft,
+* html .rgncright {
+	width:150px; 
+}
+
+ .rgncmitte {
+	float:none;
+}
+
+#left .ce .news-single-item h1 {
+	background:none;
+	font-size:12px;
+	letter-spacing:1px;
+	padding:2px;
+	margin:0;
+	height:12px;
+	line-height:10px;
+}
+
+
+
+
+
