@@ -6,15 +6,12 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tt_news.tx_rgnewsce_ce">Content elements</label>
-			<label index="tt_news.tx_rgnewsce_style">Styling</label>			
-		</languageKey>
-
-		<!-- GERMAN -->
-		<languageKey index="default" type="array">
-			<label index="tt_news.tx_rgnewsce_ce">Contentelement</label>
-			<label index="tt_news.tx_rgnewsce_style">Styling</label>			
-		</languageKey>
+			<label index="tab-short">Short</label>
+			<label index="tab-content">Content</label>
+			<label index="tab-images">Images</label>
+			<label index="tab-category">Category</label>
+			<label index="tab-special">Special</label>
+    </languageKey>
 
 	</data>
 </T3locallang>

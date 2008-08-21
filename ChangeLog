@@ -1,4 +1,14 @@
-(add new changes on top of this file)
+
+
+08-08-20 Krystian Szymukowicz  <http://typo3.prolabium.com>
+
+	* EM configuration option
+	- more tabs (option)
+	- special tab for 'short' field (option)
+	- "hide" field reorganization for cleaner look (option)
+	* css for IRRE elements
+	* image and text for LIST VIEW 
+	
 
 08-03-13 Georg Ringer  <http://www.ringer.it>
 
