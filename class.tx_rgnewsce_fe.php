@@ -61,6 +61,8 @@ class tx_rgnewsce_fe {
 			// check if there is any content and register to use in TS
 			if(count($ce_rows) || strlen($row['bodytext'])){
 				$this->local_cObj->LOAD_REGISTER(array('bodytext' => '1'),'');
+			}else{
+				$this->local_cObj->LOAD_REGISTER(array('bodytext' => '0'),'');
 			}
 
 
