@@ -53,13 +53,18 @@ class tx_rgnewsce_fe {
 		// only if LIST VIEW
 		if($pObj->config['code'] == 'LIST' || $pObj->config['code'] == 'LATEST'){
 
-			// 1. get all content element ot the news record
+			// get all content element of the news record
 			$get_ce = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('tx_rgnewsce_ce','tt_news',' uid='.$row['uid']. ' AND deleted = 0 AND hidden = 0');
 			$where = ' uid IN('.$get_ce[0]['tx_rgnewsce_ce'].') AND deleted = 0 AND hidden = 0';
 			$ce_rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid,bodytext,image','tt_content',$where,'','');
 
+			// check if there is any content and register to use in TS
+			if(count($ce_rows)){
+				$this->local_cObj->LOAD_REGISTER(array('bodytext' => '1'),'');
+			}
 
-			// 2. get ###NEWS_SUBHEADER### marker in LIST VIEW
+
+			// get ###NEWS_SUBHEADER### marker in LIST VIEW
 			if(!strlen($row['short'])){
 					
 				foreach($ce_rows as $ce_row){
@@ -74,7 +79,7 @@ class tx_rgnewsce_fe {
 			}
 
 				
-			// 3. get ###NEWS_IMAGE###' marker in LIST VIEW
+			// get ###NEWS_IMAGE###' marker in LIST VIEW
 			if(count($ce_rows)){
 				$gotImage = 0;
 				foreach($ce_rows as $ce_row){
