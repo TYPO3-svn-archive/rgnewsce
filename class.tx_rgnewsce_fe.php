@@ -37,17 +37,17 @@ class tx_rgnewsce_fe {
 		// only if SINGLE VIEW
 		if($pObj->config['code'] == 'SINGLE'){
 
-			$content = '';
-			if ($row['tx_rgnewsce_ce'] != '') {
+			if ($row['tx_rgnewsce_ce']) {
+				$content = '';
 				$ceList = explode(',',$row['tx_rgnewsce_ce']);
 				foreach ($ceList as $key=>$singleCEuid) {
 					// render the single content element
 					$ceConf =  array('tables' => 'tt_content','source' => $singleCEuid,'dontCheckPid' => 1);
 					$content .= $this->local_cObj->RECORDS($ceConf);
 				}
-			}
 			$markerArray['###NEWS_CONTENT###'] = $content;
 			$markerArray['###NEWS_IMAGE###'] = '';
+			}
 		}
 
 		// only if LIST VIEW
