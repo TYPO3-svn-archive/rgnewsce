@@ -59,7 +59,7 @@ class tx_rgnewsce_fe {
 			$ce_rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid,bodytext,image','tt_content',$where,'','');
 
 			// check if there is any content and register to use in TS
-			if(count($ce_rows)){
+			if(count($ce_rows) || strlen($row['bodytext'])){
 				$this->local_cObj->LOAD_REGISTER(array('bodytext' => '1'),'');
 			}
 
