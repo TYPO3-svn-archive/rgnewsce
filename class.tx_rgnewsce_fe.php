@@ -67,8 +67,8 @@ class tx_rgnewsce_fe {
 
 
 			// get ###NEWS_SUBHEADER### marker in LIST VIEW
-			if(!strlen($row['short'])){
-					
+			if(!strlen($row['short']) && count($ce_rows) ){
+
 				foreach($ce_rows as $ce_row){
 					//get first content element with non empty bodytext and format it with tt_news TS
 					if(strlen($ce_row['bodytext'])){
@@ -80,7 +80,7 @@ class tx_rgnewsce_fe {
 				$markerArray['###NEWS_SUBHEADER###'] = $pObj->formatStr($this->local_cObj->stdWrap($row['short'], $lConf['subheader_stdWrap.']));
 			}
 
-				
+
 			// get ###NEWS_IMAGE###' marker in LIST VIEW
 			if(count($ce_rows)){
 				$gotImage = 0;
