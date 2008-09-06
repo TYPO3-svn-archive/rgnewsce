@@ -11,6 +11,7 @@
 			<label index="tab-images">Images</label>
 			<label index="tab-category">Category</label>
 			<label index="tab-special">Special</label>
+			<label index="extended-news">Extended News</label>
     </languageKey>
 
 	</data>

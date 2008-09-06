@@ -1,11 +1,19 @@
 
+05-09-20 Krystian Szymukowicz  <http://typo3.prolabium.com>
+
+	* new EM configuration option
+	- remove 'Link internal Page' 
+	- remove 'Link internal Page'
+	* new tt_news record Type 'Extended News'. 
+	  Now editor can choose if he wants old editing or new one.
+
 
 08-08-20 Krystian Szymukowicz  <http://typo3.prolabium.com>
 
 	* EM configuration option
-	- more tabs (option)
-	- special tab for 'short' field (option)
-	- "hide" field reorganization for cleaner look (option)
+	- more tabs
+	- special tab for 'short' field
+	- "hide" field reorganization for cleaner look
 	* css for IRRE elements
 	* image and text for LIST VIEW 
 	
