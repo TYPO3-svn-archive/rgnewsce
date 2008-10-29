@@ -2,7 +2,10 @@
 <T3locallang>
 	<meta type="array">
 		<type>database</type>
-		<description>Language labels for database tables/fields belonging to extension 'rgnewsce'</description>
+		<description>
+			Language labels for database tables/fields belonging to
+			extension 'rgnewsce'
+		</description>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
@@ -16,6 +19,6 @@
 			<label index="tab-extra">Extra</label>
 			<label index="extended-news">News Extended</label>
 			<label index="extended-blog">Blog Post Extended</label>
-    </languageKey>
+		</languageKey>
 	</data>
 </T3locallang>
