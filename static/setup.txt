@@ -1,0 +1,30 @@
+plugin.tt_news {
+	
+	rgnewsce {
+		
+		enable = {$plugin.tt_news.rgnewsce.enable} 
+	
+		renderSingleInListAndLatest = {$plugin.tt_news.rgnewsce.renderSingleInListAndLatest}
+
+		displaySingle {		
+
+			renderWithCssStyledContent = {$plugin.tt_news.rgnewsce.displaySingle.renderWithCssStyledContent}
+	
+			image {
+				imageorient = {$plugin.tt_news.rgnewsce.displaySingle.image.imageorient}
+				imageborder = {$plugin.tt_news.rgnewsce.displaySingle.image.imageborder}
+				image_zoom = {$plugin.tt_news.rgnewsce.displaySingle.image.image_zoom}
+				imagecols = {$plugin.tt_news.rgnewsce.displaySingle.image.imagecols}
+				}	
+			
+			csc-imagetxt < tt_content.textpic
+			csc-imagetxt.20 {
+				imgPath = uploads/pics/
+				imgList.override.field = image
+				}
+				
+			csc-txt < tt_content.text.20
+		
+	 	}
+	}
+}
