@@ -6,13 +6,16 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="main-label">Extra tab for content</label>
 			<label index="tab-short">Short</label>
 			<label index="tab-content">Content</label>
 			<label index="tab-images">Images</label>
 			<label index="tab-category">Category</label>
 			<label index="tab-special">Special</label>
-			<label index="extended-news">Extended News</label>
+			<label index="tab-blog">Blog</label>
+			<label index="tab-extra">Extra</label>
+			<label index="extended-news">News Extended</label>
+			<label index="extended-blog">Blog Post Extended</label>
     </languageKey>
-
 	</data>
 </T3locallang>

@@ -6,7 +6,5 @@ shortAsTabWithRTE = 0
 reorganizeHide = 1
   # cat=basic//70; type=text; label= additional css: Adds css to accent different content elements (IRRE). Just remove the path if you do not want to change the styles.
 cssPath = ../typo3conf/ext/rgnewsce/res/rgnewsce.css
-  # cat=basic//80; type=boolean; label= remove "Link internal Page": When you edit news there is an drop down list with 'News', 'Link internal Page', 'Link external URL'. You can remove 'Link internal Page' if you enable this.
-removeInternalPageType = 1
-  # cat=basic//90; type=boolean; label= remove "Link external URL": When you edit news there is an drop down list with 'News', 'Link internal Page', 'Link external URL'. You can remove 'Link external URL' if you enable this. 
-removeExternalUrlType = 1
+  # cat=basic//80; type=boolean; label= extra tab in standard news: If you enable this you will get in 'standard news' an additional tab with ability to insert content elements. This is useful if you would like to just enhance standard tt_news editing "just in case" there will be requirements to put (for example) a small gallery under normal news. 
+extraTabForTTContent = 1
