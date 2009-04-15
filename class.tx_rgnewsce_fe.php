@@ -75,7 +75,7 @@ class tx_rgnewsce_fe {
 								$ce_row['imagecaption'] = $row['imagecaption'];
 								$ce_row['alttext'] = $row['imagealttext'];
 								$ce_row['titletext'] = $row['imagetitletext'];
-
+								$ce_row['imagewidth'] = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tt_news.']['displaySingle.']['image.']['file.']['maxW'];
 								$ce_row['imageorient'] = $pObj->conf['rgnewsce.']['displaySingle.']['image.']['imageorient'];
 								$ce_row['imagecols'] = $pObj->conf['rgnewsce.']['displaySingle.']['image.']['imagecols'];
 								$ce_row['imageborder'] = $pObj->conf['rgnewsce.']['displaySingle.']['image.']['imageborder'];
