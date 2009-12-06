@@ -1,4 +1,4 @@
-  # cat=basic//40; type=boolean; label= divide fields into more tabs: Divide tt_news record fields into more tabs: General, Content, Images, Category, Special.
+  # cat=basic//40; type=boolean; label= divide fields into more tabs: Divide tt_news record fields into more tabs: General, Content, Images, Category, Special. This setting will work only for tt_news < 3.0.0.
 moreTabs = 1
   # cat=basic//50; type=boolean; label= make "Short" as separate tab: Short version of news will be placed in another tab and there will be possibility to use RTE Editor for that content.
 shortAsTabWithRTE = 0
