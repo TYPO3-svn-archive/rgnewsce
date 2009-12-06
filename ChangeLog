@@ -1,5 +1,9 @@
+ver 0.0.5 - 2009-12-05 Krystian Szymukowicz  <http://typo3.prolabium.com>
 
-
+	* compatibility with tt_news 3.0.0
+	* support for multilanguage
+	* support for firstImageIsPreview and forceFirstImageIsPreview (but only for images from tt_news record)
+	 
 ver 0.0.4 - 2008-10-29 Krystian Szymukowicz  <http://typo3.prolabium.com>
 
 	* New tab "extra" with content elements can be now added to standard news. First standard etext and image is rendered - then content from tab "Extra".

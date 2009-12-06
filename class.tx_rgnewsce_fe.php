@@ -38,9 +38,16 @@ class tx_rgnewsce_fe {
 			if( $pObj->config['code'] == 'LIST' || $pObj->config['code'] == 'LATEST' || $pObj->config['code'] == 'SINGLE') {
 
 				//make $imgList - it will be needed in LIST, LATEST and SINGLE
-
 				if(t3lib_extMgm::isLoaded('dam_ttnews')){
-					$damImgList = tx_dam_db::getReferencedFiles('tt_news', $row['uid'], 'tx_damnews_dam_images');
+
+					if($row['_LOCALIZED_UID']){
+						$recordUid = $row['_LOCALIZED_UID'];
+					} else {
+						$recordUid = $row['uid'];
+					}
+					$damImgList = tx_dam_db::getReferencedFiles('tt_news', $recordUid, 'tx_damnews_dam_images');
+
+
 					$imgList = implode(',',$damImgList['files']);
 
 					if($imgList) {
@@ -54,28 +61,52 @@ class tx_rgnewsce_fe {
 					$imgList = $row['image'];
 				}
 
+				$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['rgnewsce']);
+
 				// only if SINGLE VIEW or LATEST/LIST VIEW but then plugin.tt_news.renderSingleInListLatest must be set to 1
 				if( ($pObj->config['code'] == 'SINGLE' || $pObj->conf['rgnewsce.']['renderSingleInListAndLatest']) ){
 
-					$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['rgnewsce']);
+					// forceFirstImageIsPreview option
+					$imgListSingle = $imgList;
+					if( $imgListSingle && ($GLOBALS['TSFE']->tmpl->setup['plugin.']['tt_news.']['forceFirstImageIsPreview'] || $GLOBALS['TSFE']->tmpl->setup['plugin.']['tt_news.']['firstImageIsPreview'])) {
+
+						$imgListSingle = t3lib_div::trimExplode(',', $imgListSingle);
+						if( !(count($imgListSingle) === 1 && $GLOBALS['TSFE']->tmpl->setup['plugin.']['tt_news.']['firstImageIsPreview']) ) {
+
+							$imagecaption = t3lib_div::trimExplode(',', $row['imagecaption']);
+							$alttext = t3lib_div::trimExplode(',', $row['alttext']);
+							$titletext = t3lib_div::trimExplode(',', $row['titletext']);
+
+							array_shift($imgListSingle);
+							array_shift($imagecaption);
+							array_shift($alttext);
+							array_shift($titletext);
+
+							$imagecaption = is_array($imagecaption)? implode(',', $imagecaption) : '';
+							$alttext =  is_array($alttext)? implode(',', $alttext) : '';
+							$titletext =  is_array($titletext)? implode(',', $titletext) : '';
+						}
+						$imgListSingle = is_array($imgListSingle)? implode(',', $imgListSingle) : '';
+					}
 
 					$content = '';
+	
 					if( $row['type'] == 0 && $pObj->conf['rgnewsce.']['displaySingle.']['renderWithCssStyledContent'] ){
 
 						$this->local_cObj = t3lib_div::makeInstance('tslib_cObj');
 
 						// reender only when there is at least image or bodytext
-						if($imgList || $row['bodytext']) {
+						if($imgListSingle || $row['bodytext']) {
 
 							$ce_row['bodytext'] = $row['bodytext'];
 
-							if( $imgList ) {
+							if( $imgListSingle ) {
 
-								$ce_row['image'] = $imgList;
+								$ce_row['image'] = $imgListSingle;
 								$ce_row['imagecaption'] = $row['imagecaption'];
 								$ce_row['alttext'] = $row['imagealttext'];
-								$ce_row['titletext'] = $row['imagetitletext'];
-
+								$ce_row['titletext'] = $row['imagetitletext'];								 
+								$ce_row['imagewidth'] = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tt_news.']['displaySingle.']['image.']['file.']['maxW'];
 								$ce_row['imageorient'] = $pObj->conf['rgnewsce.']['displaySingle.']['image.']['imageorient'];
 								$ce_row['imagecols'] = $pObj->conf['rgnewsce.']['displaySingle.']['image.']['imagecols'];
 								$ce_row['imageborder'] = $pObj->conf['rgnewsce.']['displaySingle.']['image.']['imageborder'];
@@ -91,20 +122,13 @@ class tx_rgnewsce_fe {
 							}
 
 							$this->local_cObj->start($ce_row, 'tt_content');
-
 							$content = $this->local_cObj->cObjGetSingle($object, $config);
 						}
 					}
 
-					//render CE
+					// render CE
 					$content_ce = '';
-					if(
-					(
-					($row['type'] == 0 && $confArr['extraTabForTTContent'] == 1)
-					|| $row['type'] == 4
-					|| $row['type'] == 5
-					)
-					&& $row['tx_rgnewsce_ce'] ) {
+					if(	( ($row['type'] == 0 && $confArr['extraTabForTTContent'] == 1) || $row['type'] == 4	|| $row['type'] == 5) && $row['tx_rgnewsce_ce'] ) {
 
 						$this->local_cObj = t3lib_div::makeInstance('tslib_cObj');
 
@@ -114,31 +138,31 @@ class tx_rgnewsce_fe {
 							$ceConf =  array('tables' => 'tt_content', 'source' => $singleCEuid, 'dontCheckPid' => 1);
 							$content_ce .= $this->local_cObj->RECORDS($ceConf);
 						}
-
-					} //render CE
-
-					if($content || $content_ce){
-						$markerArray['###NEWS_CONTENT###'] = $content . $content_ce;
-						$markerArray['###NEWS_IMAGE###'] = '';
 					}
 
-				} // render SINGLE
+					if($content || $content_ce){
+						if($pObj->conf['rgnewsce.']['displaySingle.']['renderWithCssStyledContent']) {
+							$markerArray['###NEWS_CONTENT###'] = $content . $content_ce;
+							$markerArray['###NEWS_IMAGE###'] = '';
+						} else {
+							$markerArray['###NEWS_CONTENT###'] .=  $content_ce;
+						}
+					}
+				} // end of render SINGLE
 
 
 				// only if LIST VIEW
 				if( $pObj->config['code'] == 'LIST' || $pObj->config['code'] == 'LATEST' ){
 
-					$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['rgnewsce']);
+					$this->local_cObj = t3lib_div::makeInstance('tslib_cObj');
+						
+					if($row['tx_rgnewsce_ce']){
 
-					if( ($row['type'] == 4 || $row['type'] == 5 || $confArr['extraTabForTTContent'] == 1)  && !$imgList) {
-
-						$this->local_cObj = t3lib_div::makeInstance('tslib_cObj'); // Local cObj
-
-						if($row['tx_rgnewsce_ce']){
-
-							$where = ' uid IN('.$row['tx_rgnewsce_ce'].') AND deleted = 0 AND hidden = 0';
-
-							$ce_rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid, bodytext, image', 'tt_content', $where, '', ' FIELD(uid, '.$row['tx_rgnewsce_ce'] .')');
+						$where = ' uid IN('.$row['tx_rgnewsce_ce'].') AND deleted = 0 AND hidden = 0';
+						$ce_rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid, bodytext, image', 'tt_content', $where, '', ' FIELD(uid, '.$row['tx_rgnewsce_ce'] .')');
+						
+						// if there is no standard bodytext then get it from CE
+						if(!strlen($row['bodytext'])) {
 
 							// get ###NEWS_SUBHEADER### marker in LIST VIEW
 							foreach($ce_rows as $ce_row){
@@ -149,8 +173,11 @@ class tx_rgnewsce_fe {
 									break;
 								}
 							}
+						}
+						
+						// get ###NEWS_IMAGE###' marker in LIST VIEW
+						if( ($row['type'] == 4 || $row['type'] == 5 || $confArr['extraTabForTTContent'] == 1)  && !$imgList ) {
 
-							// get ###NEWS_IMAGE###' marker in LIST VIEW
 							$gotImage = 0;
 							foreach($ce_rows as $ce_row){
 								//get first content element with non empty "image" field and format it with tt_news TS for image
@@ -194,7 +221,7 @@ class tx_rgnewsce_fe {
 		return $markerArray;
 
 	} //function
-} //class'
+} //class
 
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/rgnewsce/class.tx_rgnewsce_fe.php'])	{
