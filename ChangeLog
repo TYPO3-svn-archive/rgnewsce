@@ -1,16 +1,20 @@
-ver 0.0.5 - 2009-12-05 Krystian Szymukowicz  <http://typo3.prolabium.com>
+ver 0.1.1 - 2010-01-18 Krystian Szymukowicz  <http://www.cms-partner.pl/>
+
+	* fixed bug with relative ext path in include
+	
+ver 0.1.0 - 2009-12-05 Krystian Szymukowicz  <http://www.cms-partner.pl/>
 
 	* compatibility with tt_news 3.0.0
 	* support for multilanguage
 	* support for firstImageIsPreview and forceFirstImageIsPreview (but only for images from tt_news record)
 	 
-ver 0.0.4 - 2008-10-29 Krystian Szymukowicz  <http://typo3.prolabium.com>
+ver 0.0.4 - 2008-10-29 Krystian Szymukowicz  <http://www.cms-partner.pl/>
 
 	* New tab "extra" with content elements can be now added to standard news. First standard etext and image is rendered - then content from tab "Extra".
 	* Old text and images of tt_news can be now rendered using css_styled_content
 	# Fixed: bug #1683, #1631, #1579, #1477
 
-ver 0.0.3 - 2008-09-20 Krystian Szymukowicz  <http://typo3.prolabium.com>
+ver 0.0.3 - 2008-09-20 Krystian Szymukowicz  <http://www.cms-partner.pl/>
 
 	* new EM configuration option
 	- remove 'Link internal Page' 
@@ -19,7 +23,7 @@ ver 0.0.3 - 2008-09-20 Krystian Szymukowicz  <http://typo3.prolabium.com>
 	  Now editor can choose if he wants old editing or new one.
 
 
-ver 0.0.2 - 2008-08-20 Krystian Szymukowicz  <http://typo3.prolabium.com>
+ver 0.0.2 - 2008-08-20 Krystian Szymukowicz  <http://www.cms-partner.pl/>
 
 	* EM configuration option
 	- more tabs

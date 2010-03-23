@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) Georg Ringer <http://www.ringer.it/>
- *  (c) Krystian Szymukowicz <http://www.prolabium.com/>
+ *  (c) Krystian Szymukowicz <http://www.cms-partner.pl/>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,7 +26,7 @@
 /**
  * Hook for the 'rgnewsce' extension.
  *
- * @author	Georg Ringer <http://www.ringer.it/>, Krystian Szymukowicz <http://www.prolabium.com/>
+ * @author	Georg Ringer <http://www.ringer.it/>, Krystian Szymukowicz <http://www.cms-partner.pl/>
  */
 
 class tx_rgnewsce_fe {

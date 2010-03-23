@@ -1,7 +1,6 @@
 <?php
 
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
-//debug($GLOBALS['TYPO3_CONF_VARS']); die;
 
 if( TYPO3_MODE == 'BE' ) {
 
@@ -17,6 +16,7 @@ if( TYPO3_MODE == 'BE' ) {
 	t3lib_extMgm::addStaticFile($_EXTKEY, 'static/', 'tt_news extended');
 
 	$thisExtRelPath = t3lib_extMgm::extRelPath($_EXTKEY);
+	$thisExtAbsPath = t3lib_extMgm::extPath($_EXTKEY);
 
 	$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['rgnewsce']);
 
@@ -105,7 +105,7 @@ if( TYPO3_MODE == 'BE' ) {
 
 	} else {
 		// version for tt_news below 3.0.0
-		include($thisExtRelPath . 'ext_tables-2.5.2.php');
+		require($thisExtAbsPath . 'ext_tables-2.5.2.php');
 	}
 
 	
