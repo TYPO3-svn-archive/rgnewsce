@@ -1,31 +1,31 @@
 plugin.tt_news.rgnewsce {
 
-# cat=plugin.tt_news//90; type=boolean; label= [rgnewsce] enable rgnewsce: enables frontend rendering. Useful for testing purposes. 
+# cat=plugin.tt_news_rgnewsce//90; type=boolean; label= enable rgnewsce: enables frontend rendering. Useful for testing purposes. 
 enable = 1
 	
 displaySingle {
 	
-	# cat=plugin.tt_news//91; type=boolean; label= [rgnewsce] Single with CSS Styled Content: enables reendering standard SINGLE view news with CSS Styled Content.
+	# cat=plugin.tt_news_rgnewsce//91; type=boolean; label= single with CSS Styled Content: enables reendering standard SINGLE view news with CSS Styled Content.
 	renderWithCssStyledContent = 1
 	
 	image {
 		
-		# cat=plugin.tt_news//92; type=int+; label= [rgnewsce] image position: default image position (when reendering standard news with css_styled_content).
+		# cat=plugin.tt_news_rgnewsce//92; type=int+; label= image position: default image position (when reendering standard news with css_styled_content).
 		imageorient = 17
 		
-		# cat=plugin.tt_news//93; type=boolean; label= [rgnewsce] image border: enables border around images (when reendering standard news with css_styled_content) 
+		# cat=plugin.tt_news_rgnewsce//93; type=boolean; label= image border: enables border around images (when reendering standard news with css_styled_content) 
 		imageborder = 0
 		
-		# cat=plugin.tt_news//94; type=boolean; label= [rgnewsce] image enlarge: enables image enlarge after click (when reendering standard news with css_styled_content)
+		# cat=plugin.tt_news_rgnewsce//94; type=boolean; label= image enlarge: enables image enlarge after click (when reendering standard news with css_styled_content)
 		image_zoom = 1
 		
-		# cat=plugin.tt_news//95; type=int+; label= [rgnewsce] image columns: how many colums of images (when reendering standard news with css_styled_content)
+		# cat=plugin.tt_news_rgnewsce//95; type=int+; label= image columns: how many colums of images (when reendering standard news with css_styled_content)
 		imagecols = 1
 		
 		}
 	}
 
-# cat=plugin.tt_news//96; type=boolean; label= [rgnewsce] always render SINGLE: turns on rendering the SINGLE content in LIST and LATEST view. Useful for some rare occasion. For performance issue it is off by default.
+# cat=plugin.tt_news_rgnewsce//96; type=boolean; label= always render SINGLE: turns on rendering the SINGLE content in LIST and LATEST view. Useful for some rare occasion. For performance issue it is off by default.
 renderSingleInListAndLatest = 0
 
 }
