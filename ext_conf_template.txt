@@ -8,3 +8,5 @@ reorganizeHide = 1
 cssPath = ../typo3conf/ext/rgnewsce/res/rgnewsce.css
   # cat=basic//80; type=boolean; label= extra tab in standard news: If you enable this you will get in 'standard news' an additional tab with ability to insert content elements. This is useful if you would like to just enhance standard tt_news editing "just in case" there will be requirements to put (for example) a small gallery under normal news. 
 extraTabForTTContent = 1
+  # cat=basic//90; type=boolean; label= Add new CE: Adds news CE which can be used as separator of content elements for multipage single view
+newCeTtnewsSeparator = 1

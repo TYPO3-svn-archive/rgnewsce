@@ -19,6 +19,8 @@
 			<label index="tab-extra">Extra</label>
 			<label index="extended-news">News Extended</label>
 			<label index="extended-blog">Blog Post Extended</label>
+            <label index="ceTtnewsSeparator.title">News content multipage divider</label>
+
 		</languageKey>
 	</data>
 </T3locallang>

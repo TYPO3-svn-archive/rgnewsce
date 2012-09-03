@@ -1,12 +1,12 @@
 <?php
 
-if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
+if (!defined('TYPO3_MODE')) die ('Access denied.');
 
-if( TYPO3_MODE == 'BE' ) {
+if (TYPO3_MODE == 'BE') {
 
 	// get tt_news version information
 	$file = t3lib_extMgm::extPath('tt_news') . 'ext_emconf.php';
-	if (@is_file($file))	{
+	if (@is_file($file)) {
 		$EM_CONF = array();
 		include($file);
 		$tt_news_version = $EM_CONF[$_EXTKEY]['version'];
@@ -21,8 +21,8 @@ if( TYPO3_MODE == 'BE' ) {
 	$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['rgnewsce']);
 
 	// reorganize tt_content "hide" position
-	if(isset($confArr['reorganizeHide']) && $confArr['reorganizeHide']){
-		foreach($GLOBALS['TCA']['tt_content']['types'] as $type=>$value){
+	if (isset($confArr['reorganizeHide']) && $confArr['reorganizeHide']) {
+		foreach ($GLOBALS['TCA']['tt_content']['types'] as $type => $value) {
 			$GLOBALS['TCA']['tt_content']['types'][$type]['showitem'] = t3lib_div::rmFromList(' hidden', $GLOBALS['TCA']['tt_content']['types'][$type]['showitem']);
 			$GLOBALS['TCA']['tt_content']['types'][$type]['showitem'] = t3lib_div::rmFromList('hidden', $GLOBALS['TCA']['tt_content']['types'][$type]['showitem']);
 		}
@@ -30,76 +30,76 @@ if( TYPO3_MODE == 'BE' ) {
 	}
 
 	// add css to change the looks of IRRE to easier distinguish CE
-	if(isset($confArr['cssPath']) && strlen(trim($confArr['cssPath'])) > 0){
+	if (isset($confArr['cssPath']) && strlen(trim($confArr['cssPath'])) > 0) {
 		$GLOBALS['TBE_STYLES']['stylesheet2'] = trim($confArr['cssPath']);
 	}
 
 	t3lib_div::loadTCA('tt_news');
 
 	// adds new type of news "News extended"
-	$GLOBALS['TCA']['tt_news']['columns']['type']['config']['items'][] = Array('LLL:EXT:rgnewsce/locallang_db.xml:extended-news', 4);
-	$GLOBALS['TCA']['tt_news']['ctrl']['typeicons']['4'] = $thisExtRelPath.'res/icons/icon_tt_news_ext_icon_extended.gif';
+	$GLOBALS['TCA']['tt_news']['columns']['type']['config']['items'][] = Array('LLL:EXT:rgnewsce/locallang_be.xml:extended-news', 4);
+	$GLOBALS['TCA']['tt_news']['ctrl']['typeicons']['4'] = $thisExtRelPath . 'res/icons/icon_tt_news_ext_icon_extended.gif';
 	$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = $GLOBALS['TCA']['tt_news']['types']['0']['showitem'];
 
-	$tempColumns = Array (
-				'tx_rgnewsce_ce' => Array (
-				'exclude' => 1,
-				'label' => 'LLL:EXT:rgnewsce/locallang_db.xml:main-label',
-				'config' => Array (
-						'type' => 'inline',
-						'languageMode' => 'inherit',
+	$tempColumns = Array(
+		'tx_rgnewsce_ce' => Array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:rgnewsce/locallang_be.xml:main-label',
+			'config' => Array(
+				'type' => 'inline',
+				'languageMode' => 'inherit',
 
-						'foreign_table' => 'tt_content',
-						'foreign_table_where' => 'ORDER BY tt_content.uid',
-						'size' => 1,
-						'minitems' => 0,
-						'maxitems' => 1000,
+				'foreign_table' => 'tt_content',
+				'foreign_table_where' => 'ORDER BY tt_content.uid',
+				'size' => 1,
+				'minitems' => 0,
+				'maxitems' => 1000,
 
-						'behaviour' => array(
-							'localizationMode' => 'select',
-							'localizeChildrenAtParentLocalization' => 1,
-	),
-						'appearance' => array(
-							'showPossibleLocalizationRecords' => 1,
-							'showAllLocalizationLink' => 1,
-							'showSynchronizationLink' => 1,
-							'useSortable' => 1,
-							'newRecordLinkPosition' => 'bottom',
-	),
-	)
-	),
+				'behaviour' => array(
+					'localizationMode' => 'select',
+					'localizeChildrenAtParentLocalization' => 1,
+				),
+				'appearance' => array(
+					'showPossibleLocalizationRecords' => 1,
+					'showAllLocalizationLink' => 1,
+					'showSynchronizationLink' => 1,
+					'useSortable' => 1,
+					'levelLinksPosition' => 'bottom',
+				),
+			)
+		),
 	);
 
 	t3lib_extMgm::addTCAcolumns('tt_news', $tempColumns, 1);
 
 
 	// get different versions for 3.0.0 and different for below
-	if(version_compare($tt_news_version, '3.0.0', '>=')) {
+	if (version_compare($tt_news_version, '3.0.0', '>=')) {
 
 		// reorganize type = 0  - 'News'
-		t3lib_extMgm::addToAllTCAtypes('tt_news','tx_rgnewsce_ce','0','');
-		$GLOBALS['TCA']['tt_news']['types']['0']['showitem'] = t3lib_div::rmFromList( 'links;;;;2-2-2', $GLOBALS['TCA']['tt_news']['types']['0']['showitem']);
+		t3lib_extMgm::addToAllTCAtypes('tt_news', 'tx_rgnewsce_ce', '0', '');
+		$GLOBALS['TCA']['tt_news']['types']['0']['showitem'] = t3lib_div::rmFromList('links;;;;2-2-2', $GLOBALS['TCA']['tt_news']['types']['0']['showitem']);
 		t3lib_extMgm::addToAllTCAtypes('tt_news', 'links;;;;2-2-2', '0', 'after:related');
 
 		// Reorganzie type = 4  - 'News extended'
-		t3lib_extMgm::addToAllTCAtypes('tt_news','--div--;LLL:EXT:rgnewsce/locallang_db.xml:tab-content,tx_rgnewsce_ce', '4','after:short');
-		$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList(' image;;;;1-1-1',$GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
-		$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList('image;;;;1-1-1',$GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
-		$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList(' imagecaption;;5;;',$GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
-		$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList('imagecaption;;5;;',$GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
-		$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList('bodytext;;2;richtext:rte_transform[flag=rte_enabled|mode=ts];4-4-4',$GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
-		$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList(' bodytext;;2;richtext:rte_transform[flag=rte_enabled|mode=ts];4-4-4',$GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
+		t3lib_extMgm::addToAllTCAtypes('tt_news', '--div--;LLL:EXT:rgnewsce/locallang_be.xml:tab-content,tx_rgnewsce_ce', '4', 'after:short');
+		$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList(' image;;;;1-1-1', $GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
+		$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList('image;;;;1-1-1', $GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
+		$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList(' imagecaption;;5;;', $GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
+		$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList('imagecaption;;5;;', $GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
+		$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList('bodytext;;2;richtext:rte_transform[flag=rte_enabled|mode=ts];4-4-4', $GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
+		$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList(' bodytext;;2;richtext:rte_transform[flag=rte_enabled|mode=ts];4-4-4', $GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
 
 
 		// make separate 'Short' tab
-		if(isset($confArr['shortAsTabWithRTE']) && $confArr['shortAsTabWithRTE']) {
-			$GLOBALS['TCA']['tt_news']['types']['0']['showitem'] = t3lib_div::rmFromList(' short',$GLOBALS['TCA']['tt_news']['types']['0']['showitem']);
-			$GLOBALS['TCA']['tt_news']['types']['0']['showitem'] = t3lib_div::rmFromList('short',$GLOBALS['TCA']['tt_news']['types']['0']['showitem']);
-			t3lib_extMgm::addToAllTCAtypes('tt_news', '--div--;LLL:EXT:rgnewsce/locallang_db.xml:tab-short,short;;;richtext:rte_transform[flag=rte_enabled|mode=ts];4-4-4,', '0', 'after:bodytext');
+		if (isset($confArr['shortAsTabWithRTE']) && $confArr['shortAsTabWithRTE']) {
+			$GLOBALS['TCA']['tt_news']['types']['0']['showitem'] = t3lib_div::rmFromList(' short', $GLOBALS['TCA']['tt_news']['types']['0']['showitem']);
+			$GLOBALS['TCA']['tt_news']['types']['0']['showitem'] = t3lib_div::rmFromList('short', $GLOBALS['TCA']['tt_news']['types']['0']['showitem']);
+			t3lib_extMgm::addToAllTCAtypes('tt_news', '--div--;LLL:EXT:rgnewsce/locallang_be.xml:tab-short,short;;;richtext:rte_transform[flag=rte_enabled|mode=ts];4-4-4,', '0', 'after:bodytext');
 
-			$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList(' short',$GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
-			$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList('short',$GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
-			t3lib_extMgm::addToAllTCAtypes('tt_news', '--div--;LLL:EXT:rgnewsce/locallang_db.xml:tab-short,short;;;richtext:rte_transform[flag=rte_enabled|mode=ts];4-4-4,', '4', 'after:tx_rgnewsce_ce');
+			$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList(' short', $GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
+			$GLOBALS['TCA']['tt_news']['types']['4']['showitem'] = t3lib_div::rmFromList('short', $GLOBALS['TCA']['tt_news']['types']['4']['showitem']);
+			t3lib_extMgm::addToAllTCAtypes('tt_news', '--div--;LLL:EXT:rgnewsce/locallang_be.xml:tab-short,short;;;richtext:rte_transform[flag=rte_enabled|mode=ts];4-4-4,', '4', 'after:tx_rgnewsce_ce');
 
 		}
 
@@ -108,16 +108,26 @@ if( TYPO3_MODE == 'BE' ) {
 		require($thisExtAbsPath . 'ext_tables-2.5.2.php');
 	}
 
-	
+
 	// timtab compatibility
-	if( t3lib_extMgm::isLoaded('timtab') ) {
-		$GLOBALS['TCA']['tt_news']['columns']['type']['config']['items'][] = Array('LLL:EXT:rgnewsce/locallang_db.xml:extended-blog', 5);
+	if (t3lib_extMgm::isLoaded('timtab')) {
+		$GLOBALS['TCA']['tt_news']['columns']['type']['config']['items'][] = Array('LLL:EXT:rgnewsce/locallang_be.xml:extended-blog', 5);
 		$GLOBALS['TCA']['tt_news']['types']['5']['showitem'] = $GLOBALS['TCA']['tt_news']['types']['4']['showitem'];
-		$GLOBALS['TCA']['tt_news']['ctrl']['typeicons']['5'] = $thisExtRelPath.'res/icons/icon_tx_timtab_post_extended.gif';
-		t3lib_extMgm::addToAllTCAtypes('tt_news', '--div--;LLL:EXT:rgnewsce/locallang_db.xml:tab-blog,tx_timtab_trackbacks;;;;1-1-1,tx_timtab_comments_allowed;;;;2-2-2,tx_timtab_ping_allowed;;;;', '5', 'after:news_files');
+		$GLOBALS['TCA']['tt_news']['ctrl']['typeicons']['5'] = $thisExtRelPath . 'res/icons/icon_tx_timtab_post_extended.gif';
+		t3lib_extMgm::addToAllTCAtypes('tt_news', '--div--;LLL:EXT:rgnewsce/locallang_be.xml:tab-blog,tx_timtab_trackbacks;;;;1-1-1,tx_timtab_comments_allowed;;;;2-2-2,tx_timtab_ping_allowed;;;;', '5', 'after:news_files');
 
 		$GLOBALS['TCA']['tt_news']['types']['3']['showitem'] = $GLOBALS['TCA']['tt_news']['types']['0']['showitem'];
-		t3lib_extMgm::addToAllTCAtypes('tt_news', '--div--;LLL:EXT:rgnewsce/locallang_db.xml:tab-blog,tx_timtab_trackbacks;;;;1-1-1,tx_timtab_comments_allowed;;;;2-2-2,tx_timtab_ping_allowed;;;;', '3', 'after:news_files');
+		t3lib_extMgm::addToAllTCAtypes('tt_news', '--div--;LLL:EXT:rgnewsce/locallang_be.xml:tab-blog,tx_timtab_trackbacks;;;;1-1-1,tx_timtab_comments_allowed;;;;2-2-2,tx_timtab_ping_allowed;;;;', '3', 'after:news_files');
+	}
+
+
+	// new CE for division of single news in parts
+	if ($confArr['newCeTtnewsSeparator']) {
+		t3lib_extMgm::addPlugin(array(
+			'LLL:EXT:' . $_EXTKEY . '/locallang_be.xml:ceTtnewsSeparator.title',
+			'ceTtnewsSeparator',
+			'EXT:' . $_EXTKEY . '/res/icons/icon_tt_news_ext_icon_separator.gif',
+		), 'CType');
 	}
 
 }

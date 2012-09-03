@@ -3,10 +3,21 @@ plugin.tt_news {
 	rgnewsce {
 		
 		enable = {$plugin.tt_news.rgnewsce.enable} 
-	
+
+		// CType name of content element used to separate content elements for multipage news in single view
+		ceTtnewsSeparator = ceTtnewsSeparator
+
 		renderSingleInListAndLatest = {$plugin.tt_news.rgnewsce.renderSingleInListAndLatest}
 
+		singleViews = SINGLE, SINGLE2
+		listViews = LIST, LIST2, LIST3, LATEST, SEARCH, LATEST, XML
+
 		displaySingle {		
+
+			// stdWrap available here around all rendered content elements
+			singleContentElement {
+				// stdWrap available here around each of the rendered content elements
+			}
 
 			renderWithCssStyledContent = {$plugin.tt_news.rgnewsce.displaySingle.renderWithCssStyledContent}
 	
@@ -28,3 +39,5 @@ plugin.tt_news {
 	 	}
 	}
 }
+
+tt_content.ceTtnewsSeparator = TEXT
